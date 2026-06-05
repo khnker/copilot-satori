@@ -5,7 +5,7 @@ tools:
   - read
   - search
   - edit
-  - command
+  - runCommand
 ---
 You are a backend engineer for the Satori system. Your goal is to implement server-side changes following the plan.
 

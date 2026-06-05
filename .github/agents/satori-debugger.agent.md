@@ -5,7 +5,7 @@ tools:
   - read
   - search
   - edit
-  - command
+  - runCommand
 ---
 You are a debugging specialist for the Satori system. Your goal is to diagnose root causes and apply minimal fixes.
 

@@ -209,30 +209,91 @@ You can customize this file per-project — Copilot reads it automatically when 
 
 ---
 
-## Step 5: Use the `copilot-instructions.md` Template (optional)
+## Step 5: Use `copilot-instructions.md` Template (optional)
 
-If you don't want the full `copilot-instructions.md` in your project's `.github/`, you can use the lightweight template from this repo:
+If you don't want the full `copilot-instructions.md` in your project's `.github/`, copy the template:
 
 ```bash
-# Copy only the essential instructions
-cp prompts/copilot-instructions.md /path/to/your/project/.github/copilot-instructions.md
+cp .github/copilot-instructions.md /path/to/your/project/.github/copilot-instructions.md
 ```
 
 Then customize it to your project's stack and conventions.
 
 ---
 
+## Step 6: Understanding `AGENTS.md` vs `.agent.md` files
+
+| File | Purpose | Read by VS Code? |
+|------|---------|-----------------|
+| `.github/agents/*.agent.md` | Custom agents (appear in dropdown) | ✅ Yes — after copying to prompts/ |
+| `AGENTS.md` (root) | Project-level agent definitions for OpenCode/Cline | ❌ No — VS Code Copilot ignores it |
+
+> **Important:** The `AGENTS.md` in the root is kept for compatibility with other tools (OpenCode, Cline). For VS Code Copilot, only the `.agent.md` files in `~/.config/Code/User/prompts/` matter.
+
+---
+
+## Reference: VS Code Valid Tools
+
+In VS Code Copilot `.agent.md` files, only these tools are valid for the `tools:` field:
+
+| Tool | Purpose |
+|------|---------|
+| `read` | Read files from the workspace |
+| `search` | Search/grep the workspace |
+| `edit` | Write and edit files |
+| `runCommand` | Execute terminal commands |
+| `tentativeEdit` | Propose diffs that user applies manually |
+
+> `command` and `execute` are **NOT valid** in VS Code Copilot — use `runCommand` instead.
+
+---
+
+## Reference: Order of Precedence
+
+Copilot loads instructions from multiple sources. When there's a conflict, **the more specific source wins**:
+
+```
+codeGeneration.instructions (User settings.json)
+       ↓ (higher precedence)
+copilot instructions template (if configured)
+       ↓
+.github/copilot-instructions.md (project-level)
+       ↓
+.agent.md file instructions (agent-specific)
+       ↓ (lower precedence — base/default)
+```
+
+- **`codeGeneration.instructions`** in User `settings.json` has the **highest** precedence — it overrides everything below
+- **`.github/copilot-instructions.md`** is project-level defaults — loaded automatically
+- **`.agent.md`** instructions apply only when that specific agent is selected
+
+If you add skill paths to `codeGeneration.instructions` (as shown in Step 3B), those skills will be loaded on **every query**, not just when you mention them.
+
+---
+
 ## Verify Installation
 
-### 1. Test a Skill
+### 1. Test if a Skill is Loaded
 
-In Copilot Chat:
+The most reliable way: ask a specific question that only someone who read the SKILL.md would know.
 
+**Test 1 — Core directive (basic load):**
 ```
 @architectural-governance What is your core directive?
 ```
+Expected: *"Your primary goal is NOT to generate code quickly. Your goal is to preserve cumulative architectural coherence."*
 
-Expected response: *"Your primary goal is NOT to generate code quickly. Your goal is to preserve cumulative architectural coherence."*
+**Test 2 — Specific content (deep load):**
+```
+@architectural-governance What are the five anti-patterns you look for?
+```
+Expected: Helper Explosion, Fat Interface, Mock Layer, Copy-Paste Inheritance, God Module.
+
+**Test 3 — Skill from codeGeneration.instructions (no @mention):**
+```
+Without mentioning any skill name — how should I prevent redundant code?
+```
+If loaded via `codeGeneration.instructions`, Copilot should answer using the anti-reimplementation principles. If it doesn't, it means the skills are not in `codeGeneration.instructions`.
 
 ### 2. Test a Custom Agent
 
@@ -253,6 +314,16 @@ What are the code conventions for this project?
 ```
 
 Expected response should reference the project's naming conventions from `copilot-instructions.md`.
+
+### 4. Test Agent Tools
+
+Select **Satori Backend** from the agent dropdown, then:
+
+```
+Run ls in the root directory
+```
+
+Expected: Copilot should execute the command. If it fails, your `.agent.md` may use `command` instead of `runCommand`.
 
 ---
 
