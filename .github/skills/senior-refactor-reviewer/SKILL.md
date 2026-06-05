@@ -1,3 +1,9 @@
+---
+name: senior-refactor-reviewer
+description: Acts as a senior code reviewer; checks readability, testability, changeability, complexity budget, and coupling
+type: agent
+---
+
 # Skill: senior-refactor-reviewer
 
 # Core Directive

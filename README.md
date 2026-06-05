@@ -1,7 +1,10 @@
-# Copilot Satori
+<div align="center">
+  <img src="logo.svg" alt="Copilot Satori" width="180" height="180">
+  <h1>Copilot Satori</h1>
+</div>
 
-> Portable Agent Skills for GitHub Copilot — migrated from OpenCode format.
-> Drop into any project and give Copilot superpowers: architectural governance, refactoring discipline, layer integrity, and code review standards.
+> Portable Agent Skills for GitHub Copilot — drop into any project and give Copilot superpowers.
+> Architectural governance, refactoring discipline, layer integrity, and code review standards — all in a copy-pasteable format.
 
 ## What's Inside
 
@@ -17,8 +20,12 @@
 | 🔍 **senior-refactor-reviewer** | Acts as a senior code reviewer. Checks readability, testability, changeability, complexity budget, and coupling before every merge. |
 | 🗺️ **repository-semantic-map** | Maintains a persistent mental model of the system. Detects architectural drift, tracks decisions, and onboards you faster. |
 
-Also includes **5 agent definitions** (`AGENTS.md`): planner, backend-exec, frontend-exec, debugger, arch-review — with skill-loading and workflow instructions.
-Plus a **`.github/copilot-instructions.md`** with 8 sections covering coding style, testing, git, security, error handling, architecture principles, and AI interaction guidelines — automatically read by Copilot on every query.
+Also includes:
+- **5 agent definitions** (`AGENTS.md`): planner, backend-exec, frontend-exec, debugger, arch-review — with YAML frontmatter and tool permissions for Copilot
+- **`.github/copilot-instructions.md`**: 8 sections covering coding style, testing, git, security, error handling, architecture principles, and AI interaction guidelines — automatically read by Copilot on every query
+- **`.vscode/settings.json`**: VS Code configuration enabling Copilot agents and instruction files
+- **`docs/DECISIONS.md`**: Architecture Decision Record template for tracking design decisions
+- **CI workflow**: Validates skill formatting on every PR and push
 
 ## How to Install
 
@@ -78,7 +85,7 @@ In VS Code, mention a skill by name:
 
 ### Using Agents (Copilot Edits / Chat)
 
-The `AGENTS.md` defines multi-step agents:
+The `AGENTS.md` defines multi-step agents. Invoke them manually as needed — Copilot does not chain agents automatically:
 
 ```
 @planner I need a user profile feature with avatar upload
@@ -88,12 +95,14 @@ The `AGENTS.md` defines multi-step agents:
 @debugger The tests are failing, help
 ```
 
+**Note:** Each agent must be invoked in a separate conversation turn. Copilot does not auto-chain agents — the user drives the workflow.
+
 ### Advanced: copilot-instructions.md
 
 The included `.github/copilot-instructions.md` is automatically read by GitHub Copilot on every query.
 It contains 8 sections covering:
 
-1. **Always-On Skills** — which skills to load before writing code, during implementation, and before committing
+1. **Always-On Skills** — which skills to invoke before writing code, during implementation, and before committing
 2. **Code Style & Conventions** — naming, structure, TypeScript/React/Python rules
 3. **Git & Commits** — one concern per commit, imperative mood, small diffs
 4. **Error Handling** — never swallow errors, typed exceptions, user-friendly messages
@@ -109,24 +118,31 @@ You can customize it per-project — Copilot reads it automatically.
 ```
 copilot-satori/
 ├── README.md                          ← This file
-├── AGENTS.md                          ← Agent definitions (Copilot auto-reads)
-└── .github/
-    ├── copilot-instructions.md         ← Best practices (Copilot auto-reads)
-    └── skills/
-        ├── architectural-governance/
-        │   └── SKILL.md               ← Preserves architectural coherence
-        ├── anti-reimplementation/
-        │   └── SKILL.md               ← Prevents redundant code
-        ├── efficient-coding/
-        │   └── SKILL.md               ← Eliminates cognitive waste
-        ├── backend-integrity/
-        │   └── SKILL.md               ← Backend as source of truth
-        ├── frontend-boundary-protection/
-        │   └── SKILL.md               ← FE/BE layer separation
-        ├── senior-refactor-reviewer/
-        │   └── SKILL.md               ← Obsessive maintainability review
-        └── repository-semantic-map/
-            └── SKILL.md               ← Persistent system model
+├── AGENTS.md                          ← Agent definitions (YAML frontmatter)
+├── logo.svg                           ← Project logo
+├── .vscode/
+│   └── settings.json                  ← VS Code Copilot configuration
+├── .github/
+│   ├── copilot-instructions.md         ← Best practices (Copilot auto-reads)
+│   ├── workflows/
+│   │   └── validate-skills.yml         ← CI validation workflow
+│   └── skills/
+│       ├── architectural-governance/
+│       │   └── SKILL.md               ← Preserves architectural coherence
+│       ├── anti-reimplementation/
+│       │   └── SKILL.md               ← Prevents redundant code
+│       ├── efficient-coding/
+│       │   └── SKILL.md               ← Eliminates cognitive waste
+│       ├── backend-integrity/
+│       │   └── SKILL.md               ← Backend as source of truth
+│       ├── frontend-boundary-protection/
+│       │   └── SKILL.md               ← FE/BE layer separation
+│       ├── senior-refactor-reviewer/
+│       │   └── SKILL.md               ← Obsessive maintainability review
+│       └── repository-semantic-map/
+│           └── SKILL.md               ← Persistent system model
+└── docs/
+    └── DECISIONS.md                   ← Architecture Decision Record template
 ```
 
 ## Compatibility

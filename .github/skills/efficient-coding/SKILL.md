@@ -1,3 +1,9 @@
+---
+name: efficient-coding
+description: Eliminates cognitive and structural waste; small focused edits, no dead ends, names that reveal intent, no premature abstraction
+type: agent
+---
+
 # Skill: efficient-coding
 
 # Core Directive
@@ -16,10 +22,10 @@ Every character in the codebase should earn its keep.
 - Prefer 1-3 line changes over rewriting entire functions.
 - When fixing a bug, change only what's broken.
 - When adding a feature, touch only the minimum necessary files.
-- Use `Edit` over `Write` when modifying existing files.
+- Prefer targeted edits over full rewrites when modifying existing files.
 
 ## 3. Leverage Existing Patterns
-- Before creating anything, grep for similar patterns in the codebase.
+- Before creating anything, search for similar patterns in the codebase.
 - Mirror the style, conventions, and structure the project already uses.
 - If the project uses DTOs, create DTOs. If it uses inline types, use inline types.
 

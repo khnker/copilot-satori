@@ -1,3 +1,9 @@
+---
+name: frontend-boundary-protection
+description: Prevents logic contamination in the frontend; business logic belongs in the API, FE is presentation only
+type: agent
+---
+
 # Skill: frontend-boundary-protection
 
 # Core Directive
@@ -25,7 +31,7 @@ The frontend is a presentation layer — business logic belongs in the backend.
 
 # API Contract Alignment
 
-- Every API call goes through a service layer (`ApiService`, feature-specific services)
+- Every API call goes through a service layer (API service, feature-specific services)
 - Response types mirror the API contract (DTOs/interfaces in a shared types file)
 - Request types mirror the API input DTOs
 - Never assume a field will be present — handle optional fields with `?`
@@ -40,7 +46,7 @@ The frontend is a presentation layer — business logic belongs in the backend.
 
 # Component Architecture
 
-- Components receive data via inputs, emit events via outputs (smart/dumb pattern)
+- Components receive data via inputs, emit events via outputs (container/presentational pattern)
 - Pages/smart components orchestrate data fetching
 - Presentational components are pure — they do not call services
 - Shared components belong in a `shared/` module, feature components in `features/`

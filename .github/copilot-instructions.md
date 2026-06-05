@@ -6,7 +6,7 @@ Copilot reads `.github/copilot-instructions.md` automatically on every query.
 ## 1. Always-On Skills
 
 These skills define how Copilot should approach all coding work.
-They are automatically loaded from `.github/skills/<name>/SKILL.md`.
+When the user mentions a skill name (@skill-name), load its SKILL.md file and follow its instructions strictly.
 
 ### Before Writing Code
 - @anti-reimplementation — Search the codebase first. If the logic exists, reuse or extend it. Never write from scratch when you can call, compose, or extend.
@@ -93,7 +93,7 @@ Client → Controller (validation) → Service (logic) → Repository (data)
 - When uncertain about intent, ask clarifying questions before generating code
 - When suggesting alternatives, explain the trade-off (complexity vs capability)
 - When the task exceeds 30 minutes of work, propose a plan before writing code
-- Never generate scaffolding that the framework CLI already provides (`ng generate`, `nest generate`)
+- Prefer framework generators for boilerplate (`ng generate`, `nest generate`), but custom code for business logic — use judgment
 - Never suggest a dependency that duplicates existing functionality
 
 ## 8. Project Recognition
@@ -102,7 +102,7 @@ This project structure is recognized by these patterns:
 
 | Pattern | Behavior |
 |---------|----------|
-| `.github/skills/` present | Load all skills for every query |
-| `AGENTS.md` present | Agent definitions available for multi-step workflows |
+| `.github/skills/` present | When the topic matches a skill name, suggest the relevant @skill to the user |
+| `AGENTS.md` present | Agent definitions available for Copilot Edits workflows |
 | `.github/copilot-instructions.md` | These instructions are active |
 | Monorepo with `packages/` | Scope suggestions to the package being edited |

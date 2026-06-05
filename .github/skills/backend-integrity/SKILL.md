@@ -1,3 +1,9 @@
+---
+name: backend-integrity
+description: Enforces backend as source of truth; transactional integrity, security boundaries, API contract stability, proper layering
+type: agent
+---
+
 # Skill: backend-integrity
 
 # Core Directive

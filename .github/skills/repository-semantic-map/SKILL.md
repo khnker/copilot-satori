@@ -1,3 +1,9 @@
+---
+name: repository-semantic-map
+description: Maintains a persistent mental model of the system; detects architectural drift, tracks decisions, and onboards you faster
+type: agent
+---
+
 # Skill: repository-semantic-map
 
 # Core Directive
@@ -70,7 +76,7 @@ When drift is detected:
 ## End
 - Record any structural changes made
 - Flag any outstanding drift or concerns
-- Persist the updated map
+- Persist the updated map in `DECISIONS.md` or `docs/architecture/`
 
 # Decision Tracking
 
@@ -84,3 +90,4 @@ Consequences: <trade-offs, follow-up work>
 ```
 
 Keep decisions in a `DECISIONS.md` or `ADRs/` directory.
+See `DECISIONS.md` (included in this repo) for a template.

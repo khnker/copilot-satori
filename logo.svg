@@ -1,0 +1,61 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" width="512" height="512">
+  <defs>
+    <linearGradient id="bg" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#1a0533"/>
+      <stop offset="100%" style="stop-color:#0d1b2a"/>
+    </linearGradient>
+    <linearGradient id="hex" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#6366f1"/>
+      <stop offset="50%" style="stop-color:#8b5cf6"/>
+      <stop offset="100%" style="stop-color:#06b6d4"/>
+    </linearGradient>
+    <linearGradient id="crane" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#a78bfa"/>
+      <stop offset="100%" style="stop-color:#22d3ee"/>
+    </linearGradient>
+  </defs>
+  <!-- Background circle -->
+  <circle cx="256" cy="256" r="248" fill="url(#bg)"/>
+  <!-- Hexagon border -->
+  <polygon points="256,20 446,138 446,374 256,492 66,374 66,138" fill="none" stroke="url(#hex)" stroke-width="4" opacity="0.6"/>
+  <!-- Inner hexagon glow -->
+  <polygon points="256,50 416,153 416,359 256,462 96,359 96,153" fill="none" stroke="url(#hex)" stroke-width="1.5" opacity="0.3"/>
+  <!-- Code line hexagons - decorative circuit board pattern -->
+  <line x1="160" y1="200" x2="352" y2="200" stroke="#6366f1" stroke-width="2" opacity="0.3"/>
+  <line x1="150" y1="220" x2="362" y2="220" stroke="#8b5cf6" stroke-width="1.5" opacity="0.25"/>
+  <line x1="140" y1="240" x2="372" y2="240" stroke="#6366f1" stroke-width="1.5" opacity="0.2"/>
+  <line x1="145" y1="260" x2="367" y2="260" stroke="#8b5cf6" stroke-width="1.5" opacity="0.25"/>
+  <line x1="150" y1="280" x2="362" y2="280" stroke="#6366f1" stroke-width="1.5" opacity="0.2"/>
+  <line x1="160" y1="300" x2="352" y2="300" stroke="#06b6d4" stroke-width="2" opacity="0.3"/>
+  <!-- Code brackets decorations -->
+  <text x="185" y="245" fill="#6366f1" opacity="0.2" font-family="monospace" font-size="12">&lt;/&gt;</text>
+  <text x="295" y="265" fill="#06b6d4" opacity="0.2" font-family="monospace" font-size="12">{ }</text>
+  <!-- Origami Crane -->
+  <g transform="translate(256,245)" fill="none" stroke="url(#crane)" stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
+    <!-- Left wing (large triangle) -->
+    <path d="M0,-75 L-55,-20 L-20,-10 Z" fill="rgba(167,139,250,0.15)" stroke-width="2.5"/>
+    <!-- Right wing (large triangle) -->
+    <path d="M0,-75 L55,-20 L20,-10 Z" fill="rgba(34,211,238,0.15)" stroke-width="2.5"/>
+    <!-- Body / fuselage -->
+    <path d="M-15,-10 L0,30 L15,-10 Z" fill="rgba(167,139,250,0.1)" stroke-width="2"/>
+    <!-- Tail -->
+    <path d="M0,30 L30,55 L15,25" stroke-width="2" fill="rgba(34,211,238,0.1)"/>
+    <!-- Head -->
+    <path d="M0,-75 L-8,-45 L5,-45 Z" fill="rgba(167,139,250,0.15)" stroke-width="2"/>
+    <!-- Neck -->
+    <path d="M0,-75 L-15,-45 L-5,-50" stroke-width="2"/>
+    <!-- Wing fold detail left -->
+    <path d="M-55,-20 L-30,-40" stroke-width="1.5" opacity="0.6"/>
+    <path d="M-20,-10 L-35,-20" stroke-width="1" opacity="0.4"/>
+    <!-- Wing fold detail right -->
+    <path d="M55,-20 L30,-40" stroke-width="1.5" opacity="0.6"/>
+    <path d="M20,-10 L35,-20" stroke-width="1" opacity="0.4"/>
+  </g>
+  <!-- Small decorative dots -->
+  <circle cx="130" cy="170" r="2" fill="#6366f1" opacity="0.5"/>
+  <circle cx="382" cy="170" r="2" fill="#8b5cf6" opacity="0.5"/>
+  <circle cx="130" cy="342" r="2" fill="#06b6d4" opacity="0.5"/>
+  <circle cx="382" cy="342" r="2" fill="#a78bfa" opacity="0.5"/>
+  <!-- Bottom right text -->
+  <text x="512" y="500" fill="#6366f1" opacity="0.15" font-family="monospace" font-size="10" text-anchor="end">copilot-satori</text>
+</svg>

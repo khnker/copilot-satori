@@ -1,3 +1,9 @@
+---
+name: anti-reimplementation
+description: Prevents redundant code; always searches existing implementations before writing new code
+type: agent
+---
+
 # Skill: anti-reimplementation
 
 # Core Directive
@@ -10,7 +16,7 @@ Always assume the functionality already exists somewhere — find it before buil
 Before writing ANY new code, ask:
 
 1. **Does this exact functionality already exist?**
-   - Grep for keywords, patterns, and domain terms
+   - Search for keywords, patterns, and domain terms
    - Check similar file names across the project
    - Look for utility/helper modules
 
@@ -37,7 +43,7 @@ Before writing ANY new code, ask:
 - Writing a new **service** when a similar one exists → extend or compose
 - Writing a new **component** when a similar one exists → parameterize
 - Writing a new **DTO** that mirrors an entity → use mapped types
-- Writing a new **utility function** → check `utils/`, `helpers/` first
+- Writing a new **utility function** → check existing utilities first
 - Writing a new **type/interface** → check if it already exists in the project
 - Duplicating **validation logic** → validators belong in one place
 

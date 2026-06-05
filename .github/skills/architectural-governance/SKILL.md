@@ -1,3 +1,9 @@
+---
+name: architectural-governance
+description: Preserves cumulative architectural coherence; prevents premature abstractions, helper explosion, and layer violations
+type: agent
+---
+
 # Skill: architectural-governance
 
 # Core Directive

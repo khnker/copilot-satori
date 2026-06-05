@@ -1,0 +1,63 @@
+name: Validate Skills
+
+on:
+  pull_request:
+    paths:
+      - '.github/skills/**'
+      - 'AGENTS.md'
+      - '.github/copilot-instructions.md'
+  push:
+    branches: [main]
+    paths:
+      - '.github/skills/**'
+      - 'AGENTS.md'
+      - '.github/copilot-instructions.md'
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Check YAML frontmatter on all SKILL.md
+        run: |
+          errors=0
+          for f in .github/skills/*/SKILL.md; do
+            name=$(basename "$(dirname "$f")")
+            if ! head -1 "$f" | grep -q '^---$'; then
+              echo "ERROR: $f is missing YAML frontmatter (---)"
+              errors=$((errors+1))
+            fi
+            if ! grep -q "^description:" "$f"; then
+              echo "ERROR: $f is missing 'description:' in frontmatter"
+              errors=$((errors+1))
+            fi
+          done
+          if [ "$errors" -gt 0 ]; then
+            echo "Found $errors error(s)"
+            exit 1
+          fi
+          echo "All skills validated successfully"
+
+      - name: Validate AGENTS.md has agent sections
+        run: |
+          count=$(grep -c "^---" AGENTS.md 2>/dev/null || true)
+          if [ "$count" -lt 2 ]; then
+            echo "AGENTS.md may be missing YAML frontmatter"
+          fi
+          echo "AGENTS.md has $count YAML blocks"
+
+      - name: Validate skill references in copilot-instructions.md
+        run: |
+          errors=0
+          for skill in architectural-governance anti-reimplementation efficient-coding \
+                       backend-integrity frontend-boundary-protection \
+                       senior-refactor-reviewer repository-semantic-map; do
+            if ! grep -q "@$skill" .github/copilot-instructions.md; then
+              echo "WARNING: @$skill not referenced in copilot-instructions.md"
+            fi
+          done
+          if [ "$errors" -gt 0 ]; then
+            exit 1
+          fi
+          echo "All skill references valid"
