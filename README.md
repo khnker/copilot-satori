@@ -8,7 +8,7 @@
 
 ## What's Inside
 
-7 professional-grade **Agent Skills** (compatible with the [Agent Skills standard](https://agentskills.io)) plus a **`copilot-instructions.md`** with comprehensive best practices — all designed to transform GitHub Copilot from a chatty autocomplete into a disciplined engineering assistant.
+7 professional-grade **Agent Skills** plus a **`copilot-instructions.md`** with comprehensive best practices — all designed to transform GitHub Copilot from a chatty autocomplete into a disciplined engineering assistant.
 
 | Skill | Purpose |
 |-------|---------|
@@ -149,7 +149,7 @@ copilot-satori/
 
 - ✅ **GitHub Copilot** (VS Code) — full support (Agent Skills standard)
 - ✅ **GitHub Copilot** (JetBrains, Neovim) — should work via same format
-- ✅ **OpenCode** — native support (same `agentskills.io` format)
+- ✅ **OpenCode** — native support
 - ✅ **Cline / Roo Code** — compatible via Agent Skills standard
 - ✅ **Any agent tool** — the SKILL.md format is a documented standard
 
