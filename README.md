@@ -21,17 +21,94 @@
 | 🗺️ **repository-semantic-map** | Maintains a persistent mental model of the system. Detects architectural drift, tracks decisions, and onboards you faster. |
 
 Also includes:
-- **5 agent definitions** (`AGENTS.md`): planner, backend-exec, frontend-exec, debugger, arch-review — with YAML frontmatter and tool permissions for Copilot
-- **`.github/copilot-instructions.md`**: 8 sections covering coding style, testing, git, security, error handling, architecture principles, and AI interaction guidelines — automatically read by Copilot on every query
-- **`.vscode/settings.json`**: VS Code configuration enabling Copilot agents and instruction files
-- **`docs/DECISIONS.md`**: Architecture Decision Record template for tracking design decisions
-- **CI workflow**: Validates skill formatting on every PR and push
+- **5 custom agents** (`prompts/*.agent.md`): planner, backend, frontend, debugger, arch-review — with YAML frontmatter and tool permissions. Appear in the Copilot Chat agent selector.
+- **`.github/copilot-instructions.md`**: 8 sections covering coding style, testing, git, security, error handling, architecture principles, and AI interaction guidelines — automatically read by Copilot on every query.
+- **`.vscode/settings.json`**: VS Code configuration enabling Copilot agents and instruction files.
+- **`docs/DECISIONS.md`**: Architecture Decision Record template for tracking design decisions.
+- **CI workflow**: Validates skill formatting on every PR and push.
+
+---
+
+## How Skills and Agents Work in VS Code
+
+### 🧩 Skills — `SKILL.md`
+
+Skills are **instruction files** that Copilot loads **when you mention them explicitly**. They do not activate automatically.
+
+**Where they live:**
+- **Personal** (all projects): `~/.copilot/skills/<name>/SKILL.md`
+- **Per-project**: `.github/skills/<name>/SKILL.md`
+
+**How Copilot discovers them:**
+VS Code searches for `SKILL.md` in the paths configured in your `settings.json`:
+
+```json
+{
+  "github.copilot.chat.skills.instructionFiles": [
+    "~/.copilot/skills/*/SKILL.md"
+  ]
+}
+```
+
+**How to invoke a skill:**
+In Copilot Chat, reference the skill by name:
+
+```
+@architectural-governance Review this controller for me
+```
+
+> Skills are **not chat agents**. They are instruction files that Copilot reads as additional context when you mention them.
+
+### 🤖 Custom Agents — `.agent.md`
+
+Agents are **full chat modes** that appear in the **agent selector dropdown** in Copilot Chat. VS Code discovers them automatically from your prompts directory.
+
+**Where they must live:**
+
+| OS | Path |
+|----|------|
+| **macOS** | `~/Library/Application Support/Code/User/prompts/` |
+| **Linux** | `~/.config/Code/User/prompts/` |
+| **Windows** | `%APPDATA%\Code\User\prompts\` |
+
+**Required format (YAML frontmatter is mandatory):**
+
+```yaml
+---
+name: Satori Planner
+description: Visible in the agent selector dropdown
+tools:
+  - read
+  - search
+  - edit
+---
+Your agent instructions here...
+```
+
+**How to invoke an agent:**
+In Copilot Chat, click the agent selector dropdown (where it says "Ask" or the current agent name) → your agents appear in the list.
+
+### 🔗 How Skills and Agents Connect
+
+```
+User selects agent from dropdown (.agent.md)
+        ↓
+Agent instructions say "load @skill-name"
+        ↓
+Copilot reads the SKILL.md as context
+        ↓
+Agent responds with combined behavior
+```
+
+---
 
 ## How to Install
 
-### One-time setup: Personal skills (available in all projects)
+### Step 1: Install Skills
 
-> Skills you install once and use everywhere.
+Skills can be personal (available in all projects) or per-project.
+
+**Personal skills (recommended):**
 
 ```bash
 # Create the personal skills directory
@@ -45,21 +122,51 @@ for skill in architectural-governance anti-reimplementation efficient-coding \
 done
 ```
 
-### Per-project setup: Project skills (isolated to one repo)
-
-> Skills that travel with the codebase — ideal for team consistency.
+**Per-project skills:**
 
 ```bash
-# Just copy (or symlink) this entire repo into your project
+# Copy the skills directory into your project
 cp -r .github/skills /path/to/your/project/.github/skills
-cp AGENTS.md /path/to/your/project/AGENTS.md
 ```
 
-Now Copilot will automatically discover and load the skills when you open the project in VS Code.
+### Step 2: Install Custom Agents
 
-### Verify installation
+Copy the `.agent.md` files to your VS Code prompts directory:
 
-Open Copilot Chat in VS Code and type:
+**macOS:**
+```bash
+cp prompts/*.agent.md ~/Library/Application\ Support/Code/User/prompts/
+```
+
+**Linux:**
+```bash
+cp prompts/*.agent.md ~/.config/Code/User/prompts/
+```
+
+**Windows (PowerShell):**
+```powershell
+copy-item prompts/*.agent.md $env:APPDATA\Code\User\prompts\
+```
+
+### Step 3: Configure VS Code
+
+Add to your VS Code `settings.json` (`Cmd+Shift+P` → `Open User Settings (JSON)`):
+
+```json
+{
+  "github.copilot.chat.agents.enabled": true,
+  "github.copilot.chat.skills.instructionFiles": [
+    "~/.copilot/skills/*/SKILL.md"
+  ],
+  "github.copilot.chat.codeGeneration.instructions": [
+    { "file": ".github/copilot-instructions.md" }
+  ]
+}
+```
+
+### Step 4: Verify Installation
+
+Open Copilot Chat in VS Code and test a skill:
 
 ```
 @architectural-governance What is your core directive?
@@ -67,11 +174,13 @@ Open Copilot Chat in VS Code and type:
 
 It should respond with: *"Your primary goal is NOT to generate code quickly. Your goal is to preserve cumulative architectural coherence."*
 
+Then check the agent selector dropdown — you should see "Satori Planner", "Satori Backend", "Satori Frontend", "Satori Debugger", and "Satori Arch Review".
+
+---
+
 ## How to Use
 
-### Using Skills Directly (Copilot Chat)
-
-In VS Code, mention a skill by name:
+### Using Skills Directly
 
 ```
 @architectural-governance Review this controller for me
@@ -83,19 +192,21 @@ In VS Code, mention a skill by name:
 @repository-semantic-map Load the semantic map for this repo
 ```
 
-### Using Agents (Copilot Edits / Chat)
+### Using Custom Agents
 
-The `AGENTS.md` defines multi-step agents. Invoke them manually as needed — Copilot does not chain agents automatically:
+Select the agent from the dropdown in Copilot Chat, then describe your task:
 
-```
-@planner I need a user profile feature with avatar upload
-@backend-exec Implement the user profile API from the plan
-@frontend-exec Build the profile edit form
-@arch-review Verify the feature end-to-end
-@debugger The tests are failing, help
-```
+| Agent | When to use |
+|-------|-------------|
+| **Satori Planner** | Starting a new feature — decomposes work into layers (DB → API → FE) |
+| **Satori Backend** | Implementing API endpoints, services, database migrations |
+| **Satori Frontend** | Building UI components, pages, API integration |
+| **Satori Debugger** | Fixing bugs, investigating test failures |
+| **Satori Arch Review** | Validating cross-layer alignment before committing |
 
-**Note:** Each agent must be invoked in a separate conversation turn. Copilot does not auto-chain agents — the user drives the workflow.
+### Using AGENTS.md (Project-level)
+
+The `AGENTS.md` file in the project root is also recognized by Copilot and provides agent definitions that stay with the codebase. This is useful for team consistency without each member needing to install `.agent.md` files manually.
 
 ### Advanced: copilot-instructions.md
 
@@ -113,13 +224,21 @@ It contains 8 sections covering:
 
 You can customize it per-project — Copilot reads it automatically.
 
+---
+
 ## Repository Structure
 
 ```
 copilot-satori/
 ├── README.md                          ← This file
-├── AGENTS.md                          ← Agent definitions (YAML frontmatter)
+├── AGENTS.md                          ← Project-level agent definitions
 ├── logo.svg                           ← Project logo
+├── prompts/                           ← .agent.md files (copy to VS Code prompts dir)
+│   ├── satori-planner.agent.md
+│   ├── satori-backend.agent.md
+│   ├── satori-frontend.agent.md
+│   ├── satori-debugger.agent.md
+│   └── satori-arch-review.agent.md
 ├── .vscode/
 │   └── settings.json                  ← VS Code Copilot configuration
 ├── .github/
