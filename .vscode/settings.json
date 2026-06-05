@@ -8,5 +8,8 @@
   ],
   "github.copilot.chat.reviewSelection.instructions": [
     { "file": ".github/copilot-instructions.md" }
+  ],
+  "github.copilot.chat.skills.instructionFiles": [
+    "~/.copilot/skills/*/SKILL.md"
   ]
 }

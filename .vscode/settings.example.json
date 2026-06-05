@@ -1,0 +1,61 @@
+// ===============================================================
+// Satori — User settings.json example
+// ===============================================================
+// Copy the relevant section for your OS into your User settings.json.
+// Open: Cmd+Shift+P (macOS) / Ctrl+Shift+P (Linux/Windows) →
+//       "Open User Settings (JSON)"
+// ===============================================================
+
+// ---------------------------------------------------------------
+// macOS
+// ---------------------------------------------------------------
+// {
+//   "github.copilot.chat.skills.instructionFiles": [
+//     "/Users/TU_USUARIO/.copilot/skills/*/SKILL.md"
+//   ],
+//   "github.copilot.chat.codeGeneration.instructions": [
+//     { "file": "/Users/TU_USUARIO/.copilot/skills/architectural-governance/SKILL.md" },
+//     { "file": "/Users/TU_USUARIO/.copilot/skills/anti-reimplementation/SKILL.md" },
+//     { "file": "/Users/TU_USUARIO/.copilot/skills/efficient-coding/SKILL.md" },
+//     { "file": "/Users/TU_USUARIO/.copilot/skills/backend-integrity/SKILL.md" },
+//     { "file": "/Users/TU_USUARIO/.copilot/skills/frontend-boundary-protection/SKILL.md" },
+//     { "file": "/Users/TU_USUARIO/.copilot/skills/senior-refactor-reviewer/SKILL.md" },
+//     { "file": "/Users/TU_USUARIO/.copilot/skills/repository-semantic-map/SKILL.md" }
+//   ]
+// }
+
+// ---------------------------------------------------------------
+// Linux
+// ---------------------------------------------------------------
+// {
+//   "github.copilot.chat.skills.instructionFiles": [
+//     "/home/TU_USUARIO/.copilot/skills/*/SKILL.md"
+//   ],
+//   "github.copilot.chat.codeGeneration.instructions": [
+//     { "file": "/home/TU_USUARIO/.copilot/skills/architectural-governance/SKILL.md" },
+//     { "file": "/home/TU_USUARIO/.copilot/skills/anti-reimplementation/SKILL.md" },
+//     { "file": "/home/TU_USUARIO/.copilot/skills/efficient-coding/SKILL.md" },
+//     { "file": "/home/TU_USUARIO/.copilot/skills/backend-integrity/SKILL.md" },
+//     { "file": "/home/TU_USUARIO/.copilot/skills/frontend-boundary-protection/SKILL.md" },
+//     { "file": "/home/TU_USUARIO/.copilot/skills/senior-refactor-reviewer/SKILL.md" },
+//     { "file": "/home/TU_USUARIO/.copilot/skills/repository-semantic-map/SKILL.md" }
+//   ]
+// }
+
+// ---------------------------------------------------------------
+// Windows
+// ---------------------------------------------------------------
+// {
+//   "github.copilot.chat.skills.instructionFiles": [
+//     "C:\\Users\\TU_USUARIO\\.copilot\\skills\\*\\SKILL.md"
+//   ],
+//   "github.copilot.chat.codeGeneration.instructions": [
+//     { "file": "C:\\Users\\TU_USUARIO\\.copilot\\skills\\architectural-governance\\SKILL.md" },
+//     { "file": "C:\\Users\\TU_USUARIO\\.copilot\\skills\\anti-reimplementation\\SKILL.md" },
+//     { "file": "C:\\Users\\TU_USUARIO\\.copilot\\skills\\efficient-coding\\SKILL.md" },
+//     { "file": "C:\\Users\\TU_USUARIO\\.copilot\\skills\\backend-integrity\\SKILL.md" },
+//     { "file": "C:\\Users\\TU_USUARIO\\.copilot\\skills\\frontend-boundary-protection\\SKILL.md" },
+//     { "file": "C:\\Users\\TU_USUARIO\\.copilot\\skills\\senior-refactor-reviewer\\SKILL.md" },
+//     { "file": "C:\\Users\\TU_USUARIO\\.copilot\\skills\\repository-semantic-map\\SKILL.md" }
+//   ]
+// }
