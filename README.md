@@ -5,7 +5,7 @@
 
 ## What's Inside
 
-7 professional-grade **Agent Skills** (compatible with the [Agent Skills standard](https://agentskills.io)) that transform GitHub Copilot from a chatty autocomplete into a disciplined engineering assistant.
+7 professional-grade **Agent Skills** (compatible with the [Agent Skills standard](https://agentskills.io)) plus a **`copilot-instructions.md`** with comprehensive best practices — all designed to transform GitHub Copilot from a chatty autocomplete into a disciplined engineering assistant.
 
 | Skill | Purpose |
 |-------|---------|
@@ -18,6 +18,7 @@
 | 🗺️ **repository-semantic-map** | Maintains a persistent mental model of the system. Detects architectural drift, tracks decisions, and onboards you faster. |
 
 Also includes **5 agent definitions** (`AGENTS.md`): planner, backend-exec, frontend-exec, debugger, arch-review — with skill-loading and workflow instructions.
+Plus a **`.github/copilot-instructions.md`** with 8 sections covering coding style, testing, git, security, error handling, architecture principles, and AI interaction guidelines — automatically read by Copilot on every query.
 
 ## How to Install
 
@@ -89,14 +90,19 @@ The `AGENTS.md` defines multi-step agents:
 
 ### Advanced: copilot-instructions.md
 
-For even deeper integration, create a `.github/copilot-instructions.md` that loads the skills you use most:
+The included `.github/copilot-instructions.md` is automatically read by GitHub Copilot on every query.
+It contains 8 sections covering:
 
-```markdown
-> Always load architectural-governance before designing new modules.
-> Always load anti-reimplementation before writing new utilities.
-> Always load efficient-coding during implementation.
-> Always load senior-refactor-reviewer before committing.
-```
+1. **Always-On Skills** — which skills to load before writing code, during implementation, and before committing
+2. **Code Style & Conventions** — naming, structure, TypeScript/React/Python rules
+3. **Git & Commits** — one concern per commit, imperative mood, small diffs
+4. **Error Handling** — never swallow errors, typed exceptions, user-friendly messages
+5. **Security** — authentication by default, server-side validation, no secrets in code
+6. **Architecture Principles** — data flow direction, bounded contexts, composition over inheritance
+7. **AI Interaction Guidelines** — when to ask questions, how to propose trade-offs, when to plan
+8. **Project Recognition** — auto-detection patterns for skills, agents, monorepo structure
+
+You can customize it per-project — Copilot reads it automatically.
 
 ## Repository Structure
 
@@ -105,6 +111,7 @@ copilot-satori/
 ├── README.md                          ← This file
 ├── AGENTS.md                          ← Agent definitions (Copilot auto-reads)
 └── .github/
+    ├── copilot-instructions.md         ← Best practices (Copilot auto-reads)
     └── skills/
         ├── architectural-governance/
         │   └── SKILL.md               ← Preserves architectural coherence
