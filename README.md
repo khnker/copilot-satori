@@ -61,7 +61,12 @@ See [`GUIDE.md`](GUIDE.md) for exact commands for your OS and troubleshooting.
 
 ### Custom Agents (agent selector dropdown)
 
-Select from the Copilot Chat dropdown, then describe your task:
+> **Important:** Custom agents are NOT invoked with `@name` — the `@` syntax only works for built-in tools (`@workspace`, `@github`). Instead, select the agent from the **dropdown menu** in Copilot Chat.
+
+1. Open Copilot Chat
+2. Click the agent selector (shows "Ask" or current agent name)
+3. Choose an agent from the list
+4. The chat mode changes — now describe your task
 
 | Agent | When to use |
 |-------|-------------|

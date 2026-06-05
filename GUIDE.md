@@ -12,6 +12,15 @@
 
 Custom agents appear in the Copilot Chat agent selector dropdown.
 
+> **Important:** Custom agents are NOT invoked with `@name` in chat. The `@` syntax (`@workspace`, `@github`) only works for built-in tools. To use a custom agent, select it from the dropdown instead.
+
+### How to select an agent
+
+1. Open Copilot Chat in VS Code
+2. Click the agent selector (shows "Ask" or current agent name)
+3. Choose your agent from the dropdown list
+4. The chat mode changes to that agent — now type your request
+
 ### Where agents live in the repo
 
 ```
@@ -296,6 +305,8 @@ Without mentioning any skill name — how should I prevent redundant code?
 If loaded via `codeGeneration.instructions`, Copilot should answer using the anti-reimplementation principles. If it doesn't, it means the skills are not in `codeGeneration.instructions`.
 
 ### 2. Test a Custom Agent
+
+> Select from the dropdown — do NOT type `@Satori Planner`
 
 Open Copilot Chat → click the agent selector → choose **Satori Planner** → type:
 
