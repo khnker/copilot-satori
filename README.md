@@ -137,19 +137,6 @@ copilot-satori/
 - ✅ **Cline / Roo Code** — compatible via Agent Skills standard
 - ✅ **Any agent tool** — the SKILL.md format is a documented standard
 
-## What's NOT Included
-
-These capabilities existed in the original OpenCode setup but are not portable to Copilot:
-
-| Feature | Alternative |
-|---------|-------------|
-| **Graphify** (knowledge graph) | Use Copilot's built-in codebase indexing |
-| **Engram** (persistent memory) | Document in `AGENTS.md` or `copilot-instructions.md` |
-| **Contract manifests** (`contracts/<feature>.json`) | Track in your project management tool |
-| **Orchestration flow** (fan-out/fan-in) | Manual sequential prompting |
-| **Background execution** (PTY) | Use VS Code tasks (`tasks.json`) |
-| **File system tools** (read/write/edit) | Use VS Code native editing |
-
 ## License
 
 MIT — use freely in any project, personal or commercial.
